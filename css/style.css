@@ -1,0 +1,442 @@
+:root {
+
+  --opacity-background-color: rgba(0, 0, 0, 0.2);		
+
+  --screen-width: 540px;
+  --screen-height: 960px;
+  --topPanel-width: 250px;
+  --topPanel-height: 50px;
+  --topPanel-top: 30px;
+  --topPanel-left: 15px;
+  
+  --toolbarScrollable-height: 960px;
+  
+  --topPanelIconContainer-height:30px;
+    
+  --shieldBar-width: 249px;
+  --shieldBar-height: 8px;
+  --shieldBarInner-height: 8px;
+  --shieldIcon-width: 15px;
+  --shieldIcon-height: 18px;
+  
+  --healthIconContainer-width: 16px;
+  --healthIconContainer-height: 16px;
+  --healthIcon-width: 16px;
+  --healthIcon-height: 16px;
+  
+  --shieldCurrent-width: 50%; /* GAMEPLAY */
+  
+  --bottomPanel-width: 290px;
+  --bottomPanel-bottom: 60px;
+  --bottomPanel-left: 15px;
+
+  --lifeSupportBar-width: 249px;
+  --lifeSupportBar-height: 8px;
+  --lifeSupportBarInner-height: 7px;
+  --lifeSupportIcon-width: 16px;
+  --lifeSupportIcon-height: 16px;
+  --lifeSupportCurrent-width: 50%; /* GAMEPLAY */
+
+  /* Helpers for screenshots */
+  --max-panel-width: 385px;
+  
+}
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body{
+	margin:0px;
+	background-color: #000000;
+	color:#ffffff;
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+#toolbar{
+	position:absolute;
+	width: var(--screen-width);
+	top: 65px;	
+}
+
+#toolbarOptions{
+	text-align:center;
+	width:100%;
+}
+
+#toolbarScrollable{
+	display:none;
+	overflow:auto;
+	padding-left:15px;
+	padding-right:15px;
+	height: var(--toolbarScrollable-height);
+	background-color: #000000da;
+    margin-top: 10px;
+}
+
+#toolbarValues{
+	display:flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+#toolbarTip{
+	text-align:center;
+	font-size:11pt;
+	border-bottom:1px solid #cecece;
+	margin-bottom:5px;
+}
+
+.toolbarDualOption{
+	flex-grow:1;
+	display:flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+	
+}
+
+.toolbarDualItem{
+	flex-grow:1;
+	max-width:50%;
+	text-align: center;
+	padding:8px;
+}
+
+.toolbarDualOption + .toolbarDualOption{
+	margin-bottom:15px;
+}
+
+#backgroundCanvas{	
+	position: absolute;
+	top: 0px;
+}
+
+#welcomeBG{
+	width: var(--screen-width);
+	height: var(--screen-height);
+	background-color: #3f595d;
+	display: flex;
+    align-items: center;
+}
+
+#welcomeBGMessage{
+	width: 100%;
+    text-align: center;
+    font-size: 20pt;
+    padding: 4px;
+}
+
+#welcomeBGTop{
+	text-shadow: 1px 1px 5px #666, -1px -1px 5px #dedede, 1px 1px #666, -1px -1px #dedede;
+}
+
+#version {
+    border: 1px solid #6c7169;
+    padding: 4px;
+    background-color: #4a7980;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+#beta {
+	border: 1px solid #631100;
+    padding: 2px;
+    background-color: #8e0606;
+    border-radius: 5px;
+    font-size: 0.55em;
+}
+
+/* FINAL CONTAINER */
+
+#fullScreenContainer, #container{
+	background-color:black;
+	width: var(--screen-width);
+	height: var(--screen-height);
+
+	overflow: hidden;
+	position: relative;
+	
+	-webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+
+#container:-webkit-full-screen{
+	width: var(--screen-width);
+	height: var(--screen-height);
+}
+
+/* TOP PANEL */
+	
+#topPanel{
+	width:var(--topPanel-width);
+	height:var(--topPanel-height);
+	top:var(--topPanel-top);
+	left:var(--topPanel-left);
+	position:absolute;
+	-ms-transform: rotate(2deg); /* IE 9 */
+	-webkit-transform: rotate(2deg); /* Safari */
+	transform: rotate(2deg);
+	max-width:var(--max-panel-width);
+}
+	
+#shieldBar{
+	width:var(--shieldBar-width);
+	height:var(--shieldBarInner-height);
+	overflow: hidden;
+	position: relative;
+	border-right:1px solid #F4F7E1;
+	max-width:var(--max-panel-width);
+}
+	
+#shieldFull{
+	position:absolute;
+	top:-1px;
+	left:0px;
+	width:99%;
+	height: var(--shieldBar-height);
+	background-color: var(--opacity-background-color);
+}
+	
+#shieldCurrent{
+	width:var(--shieldCurrent-width);
+	position:absolute;
+	top:-1px;
+	left:0px;
+	height:var(--shieldBar-height);
+	background-color:#F4F7E1;
+}
+
+#topIconsContainer{
+	position:relative;
+	height: var(--topPanelIconContainer-height);
+}
+	
+#shieldIcon{
+	position:absolute;
+	width: var(--shieldIcon-width);
+	height: var(--shieldIcon-height);
+	margin:5px;
+}
+
+.strech{
+	width:100%;
+	height:100%;
+}
+
+
+#healthIcons{
+	display: inline-table;
+	list-style-type: none;
+	margin:0px;
+	margin-top:5px;
+	position:absolute;
+	padding-left: 30px;
+}
+
+.healthIconContainer{
+	width: var(--healthIconContainer-width);
+	height: var(--healthIconContainer-width);
+    background: #F4F7E17f;
+	display: inline-block;
+	margin-right:5px;
+}
+
+.healthIcon{
+	width: var(--healthIcon-height);
+    height: var(--healthIcon-width);
+}
+	
+/* BOTTOM PANEL */
+	
+#bottomPanel{
+	min-width: var(--bottomPanel-width);
+	bottom: var(--bottomPanel-bottom);
+	left: var(--bottomPanel-left);
+	position:absolute;
+	display:inline-block;
+	max-width:var(--max-panel-width);
+	-ms-transform: rotate(-2deg); /* IE 9 */
+	-webkit-transform: rotate(-2deg); /* Safari */
+	transform: rotate(-2deg);
+}
+
+#lifeSupportIcon{
+	height: var(--lifeSupportIcon-width);
+	width: var(--lifeSupportIcon-height);
+	margin-bottom:5px;
+}
+
+#stormIndication{
+	position:absolute;
+	top:0px;
+	width: var(--lifeSupportBar-width);
+	max-width:var(--max-panel-width);
+	font-size: 11pt;
+	text-align:right;
+}
+
+#lifeSupportBar{
+	width: var(--lifeSupportBar-width);
+	height: var(--lifeSupportBarInner-height);
+	overflow: hidden;
+	position: relative;
+	border-right:1px solid #F4F7E1;
+	max-width:var(--max-panel-width);
+}
+	
+#lifeSupportFull{
+	position:absolute;
+	top:-1px;
+	left:0px;
+	width:99.9%;
+	height:var(--lifeSupportBar-height);
+	background-color: var(--opacity-background-color);
+}
+	
+#lifeSupportCurrent{
+	position:absolute;
+	top:-1px;
+	left:0px;
+	width:var(--lifeSupportCurrent-width);
+	height:var(--lifeSupportBar-height);
+	background-color:#F4F7E1;
+}
+
+#planetInfo{
+	margin-top:10px;
+	overflow: hidden;
+	position: relative;
+	color: #F4F7E1;
+	background-color: var(--opacity-background-color);
+	max-width:var(--max-panel-width);
+	
+}
+	
+#planetNameContainer{
+	height: 18px;
+	overflow: hidden;
+	position: relative;
+	margin-left:10px;
+}
+	
+#planetNameBars{
+	-ms-transform: skewX(-20deg); /* IE 9 */
+	-webkit-transform: skewX(-20deg); /* Safari */
+	transform: skewX(-20deg); /* Standard syntax */
+	position: absolute;
+    top: 2px;
+}
+	
+#planetNameBar1{
+	height: 9px;
+	width: 4px;
+	position:absolute;
+	background-color: #F4F7E1;
+	left: 5px;
+	top: 3px;
+}
+	
+#planetNameBar2{
+	height: 9px;
+	width: 4px;
+	position:absolute;
+	background-color: #F4F7E1;
+	left: 12px;
+	top: 3px;
+}
+	
+#planetName{
+	color: #F4F7E1;
+	font-weight: bold;
+	position:relative;
+	white-space: nowrap;
+	margin-left:20px;
+	margin-right:15px;
+}
+	
+#planetAmbient{
+	margin-top:8px;
+	display:table;
+	margin-bottom:5px;
+	margin-left:10px;
+}
+	
+#planetAmbientLeft{
+	padding-right:5px;
+	border-right:1px solid #F4F7E1;
+	width:auto;
+	display:table-cell;
+	vertical-align:middle;
+}
+	
+#planetTemp{
+	font-size:25pt;
+}
+	
+#planetAmbientRight{
+	padding-left:5px;
+	vertical-align:middle;
+	font-size:8pt;
+	margin-top: inherit;
+}
+
+/* POPUP */
+
+#popupNotice{
+	position: absolute;
+    top: 0px;
+	display:none;
+}
+
+#popupOpacityLayer{
+	overflow: hidden;
+	position: relative;
+	width: var(--screen-width);
+	height: var(--screen-height);
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+#popupContent{
+	border-radius: 11px;
+	position:absolute;
+	top:130px;
+	width:50%;
+	margin-left:25%;
+	margin-right:25%;
+	padding-top:10px;
+	padding-bottom:10px;
+	color: white;
+	background-color: #74b574;
+	text-align:center;
+}
+
+/* Upload control */
+
+.button {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+#bgFileContainer{
+	display:inline;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+

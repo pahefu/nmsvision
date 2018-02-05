@@ -1,0 +1,177 @@
+<!--v01 Pahefu @ 2018 -->
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+
+		<script src="./js/html2canvas.min.js"></script>
+		<script src="./js/canvasToBlob.js"></script>
+		<script src="./js/zepto.min.js"></script>
+		<script src="./js/load-image.all.min.js"></script>
+		<script src="./js/gui.js"></script>
+		<script src="./js/cameraHandler.js"></script>
+
+		<link href="./css/fontello.css" rel="stylesheet" type="text/css"></link>
+		<link href="./css/style.css" rel="stylesheet" type="text/css"></link>
+	</head>
+<body>
+
+	<div id="fullScreenContainer">
+
+		<div id="container">
+			
+			
+
+			<!-- Welcome panel, disabled when changed BG succesfully -->
+			<div id="welcomeBG">
+				<div id="welcomeBGMessage">
+					<div>Welcome to pahefu's</div>
+					<div><span id="welcomeBGTop">NMS Vision</span> <span class="" id="version">v0.1</span></div>
+					<span id="beta">BETA</span>
+					<p style="margin-top: 5px;">Just start playing with the features and have fun bringing the NMS HUD to real life</p>
+				</div>
+			</div>
+			
+			<div>
+				<!-- BG Canvas used for images, rescale later by code -->
+				<canvas id="backgroundCanvas" width="40" height="40"></canvas>
+			</div>
+			
+			<!-- TOP panel -->	
+			<div id="topPanel">
+				<div id="shieldBar">
+					<div id="shieldFull"></div>
+					<div id="shieldCurrent"></div>
+				</div>
+				<div id="topIconsContainer">
+					<div id="shieldIcon"><img src="./img/shield.png" class="strech"/></div>
+					<ul id="healthIcons">
+						<li class="healthIconContainer"><img src="./img/health.png" class="strech"/></li>
+						<li class="healthIconContainer"><img src="./img/health.png" class="strech"/></li>
+						<li class="healthIconContainer"><img src="./img/health.png" class="strech"/></li>
+						<li class="healthIconContainer"><img src="./img/health.png" class="strech"/></li>
+					</ul>
+				</div>
+			</div>
+		
+			<!-- Bottom panel -->
+			<div id="bottomPanel">
+
+				<!-- Life Support info -->
+				<div id="lifeSupportIcon"><img src="./img/pulse.png" class="strech"/></div>
+				<div id="stormIndication"></div>
+				<div id="lifeSupportBar">
+					<div id="lifeSupportFull"></div>
+					<div id="lifeSupportCurrent"></div>
+				</div>
+
+				<!-- Planet info -->
+				<div id="planetInfo">	
+					<div id="planetNameContainer">
+						<div id="planetNameBars">
+							<div id="planetNameBar1"></div>
+							<div id="planetNameBar2"></div>
+						</div>
+						<div id="planetName">NMS Vision</div>
+					</div>
+					
+					<div id="planetAmbient">
+						<div id="planetAmbientLeft">
+							<div id="planetTemp">19&deg;C </div>
+						</div>
+						<div id="planetAmbientRight">
+							<div id="planetRad"><span id="planetRadValue">0.0</span> Rad</div>
+							<div id="planetTox"><span id="planetToxValue">0.0</span> Tox</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+		</div>
+		
+		<div id="toolbar" >
+		
+			<div id="toolbarOptions">
+				<button id="fsButton" class="button" onclick="fullscreen();"><i class="icon-resize-full"></i> </button>
+				<button id="captureButton" class="button" onclick="capture();"><i class="icon-download"></i> </button>
+				<div id="bgFileContainer">
+					<input type="file" name="bgFile" id="bgFile" class="inputfile" onchange="picChange(event)">
+					<label for="bgFile" class="button"> <i class="icon-picture"></i></label>					
+				</div>
+				<button id="settingsButton" class="button" onclick="toggleSettings();"><i class="icon-sliders"></i> </button>
+			</div>
+			
+			<div id="toolbarScrollable">
+				<div id="toolbarTip">Scroll if you dont see everything!</div>
+				<div id="toolbarValues">
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Shield %</label>
+						<input class="toolbarDualItem" type="range" id="shieldPercent" min="1" max="100" step="1" value="50">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Health Count</label>
+						<input class="toolbarDualItem" type="range" id="healthCount" min="1" max="4" step="1" value="4">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Life Sup. %</label>
+						<input class="toolbarDualItem" type="range" id="lifeSupportPercent" min="1" max="100" step="1" value="50">
+					</div>
+
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Storm </label><br/>
+						<input class="toolbarDualItem" type="checkbox" id="showStormCheck"> Enable</input>
+					</div>					
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Planet Name</label><br/>
+						<input class="toolbarDualItem"style="color:black;" type="text" id="planetNameValue" value="NMS Vision">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Temp value </label><br/>
+						<input class="toolbarDualItem" style="color:black;" type="text" id="planetTempValue" value="19">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Temperature </label><br/>
+						<input class="toolbarDualItem" type="checkbox" id="useCelsiusCheck" checked> Use Celsius format</input>
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Planet Rad</label>
+						<input class="toolbarDualItem" type="range" id="radValue" min="0.0" max="50.0" step="0.2" value="0.0">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Planet Tox</label>
+						<input class="toolbarDualItem" type="range" id="toxValue" min="0.0" max="50.0" step="0.2" value="0.0">
+					</div>
+					
+					<div class="toolbarDualOption">
+						<label class="toolbarDualItem" style="color:white;background-color:black;">Crop landscape images</label><br/>
+						<input class="toolbarDualItem" type="checkbox" id="cropLandscapeCheck"> Crop</input>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="popupNotice" style="">
+			<div id="popupOpacityLayer"></div>
+			<div id="popupContent">Generating<br/>Image</div>
+		</div>
+		
+	</div>
+	<script>
+		window.onload = function(){
+			initialize();
+		}
+	</script>
+	
+</body>
+
+</html>
